@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<robot name="Diff_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="Revolución1_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Revolución1">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Revolución1_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="Revolución2_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Revolución2">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Revolución2_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>
