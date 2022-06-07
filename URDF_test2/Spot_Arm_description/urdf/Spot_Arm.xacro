@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<robot name="Spot_Arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find Spot_Arm_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find Spot_Arm_description)/urdf/Spot_Arm.trans" />
+<xacro:include filename="$(find Spot_Arm_description)/urdf/Spot_Arm.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="1.4893738513430887e-17 1.4893738513430887e-17 0.01897600060636538" rpy="0 0 0"/>
+    <mass value="4.793647614048811"/>
+    <inertia ixx="0.006505" iyy="0.006505" izz="0.011739" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Spot_Arm_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Spot_Arm_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="link1_1">
+  <inertial>
+    <origin xyz="-0.00010166140320390767 -0.002439812837878551 0.06408235101807577" rpy="0 0 0"/>
+    <mass value="3.793924423065161"/>
+    <inertia ixx="0.014741" iyy="0.010145" izz="0.008966" ixy="-1e-06" iyz="0.000332" ixz="1.4e-05"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Spot_Arm_description/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Spot_Arm_description/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolución4" type="continuous">
+  <origin xyz="0.0 0.0 0.04" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="link1_1"/>
+  <axis xyz="0.0 0.0 1.0"/>
+</joint>
+
+</robot>
