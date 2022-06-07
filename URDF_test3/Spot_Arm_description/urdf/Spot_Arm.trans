@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<robot name="Spot_Arm" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+<transmission name="Revolución4_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Revolución4">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Revolución4_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="Revolución5_tran">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="Revolución5">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="Revolución5_actr">
+    <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+</robot>

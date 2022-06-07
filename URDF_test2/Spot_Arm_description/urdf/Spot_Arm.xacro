@@ -25,32 +25,24 @@
   </collision>
 </link>
 
-<link name="link1_1">
+<link name="Prueba_v3_1">
   <inertial>
-    <origin xyz="-0.00010166140320390767 -0.002439812837878551 0.06408235101807577" rpy="0 0 0"/>
-    <mass value="3.793924423065161"/>
-    <inertia ixx="0.014741" iyy="0.010145" izz="0.008966" ixy="-1e-06" iyz="0.000332" ixz="1.4e-05"/>
+    <origin xyz="0.1694622856777813 -0.019999999999999997 0.029880773177518555" rpy="0 0 0"/>
+    <mass value="4.784539712022633"/>
+    <inertia ixx="0.002924" iyy="0.054342" izz="0.052694" ixy="-0.0" iyz="0.0" ixz="-0.009057"/>
   </inertial>
   <visual>
-    <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
+    <origin xyz="-0.0 -0.03 -0.14" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="package://Spot_Arm_description/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="package://Spot_Arm_description/meshes/Prueba_v3_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
     <material name="silver"/>
   </visual>
   <collision>
-    <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
+    <origin xyz="-0.0 -0.03 -0.14" rpy="0 0 0"/>
     <geometry>
-      <mesh filename="package://Spot_Arm_description/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
+      <mesh filename="package://Spot_Arm_description/meshes/Prueba_v3_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
   </collision>
 </link>
 
-<joint name="Revolución4" type="continuous">
-  <origin xyz="0.0 0.0 0.04" rpy="0 0 0"/>
-  <parent link="base_link"/>
-  <child link="link1_1"/>
-  <axis xyz="0.0 0.0 1.0"/>
-</joint>
-
-</robot>
