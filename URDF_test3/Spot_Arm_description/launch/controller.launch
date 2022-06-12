@@ -1,9 +1,0 @@
-<launch>
-
-<rosparam file="$(find Spot_Arm_description)/launch/controller.yaml" command="load"/>
-<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="Spot_Arm" args="Revolución4_position_controller Revolución5_position_controller joint_state_controller "/>
-<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-  <remap from="/joint_states" to="/Spot_Arm/joint_states"/>
-</node>
-
-</launch>

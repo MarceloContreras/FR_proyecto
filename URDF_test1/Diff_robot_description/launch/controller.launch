@@ -1,9 +1,0 @@
-<launch>
-
-<rosparam file="$(find Diff_robot_description)/launch/controller.yaml" command="load"/>
-<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="Diff_robot" args="Revolución1_position_controller Revolución2_position_controller joint_state_controller "/>
-<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-  <remap from="/joint_states" to="/Diff_robot/joint_states"/>
-</node>
-
-</launch>
