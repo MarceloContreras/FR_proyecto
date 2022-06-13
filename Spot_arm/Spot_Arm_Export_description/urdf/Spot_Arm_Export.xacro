@@ -196,7 +196,7 @@
   <limit effort="500.0" lower="0" upper="2.61799" velocity="0.5"/>
 </joint>
 
-<joint name="Rev10" type="continuous">
+<joint name="Rev10" type="revolute">
   <origin xyz="0.107 -0.01 0.09734" rpy="0 0 0"/>
   <parent link="link3_1"/>
   <child link="link4_1"/>
