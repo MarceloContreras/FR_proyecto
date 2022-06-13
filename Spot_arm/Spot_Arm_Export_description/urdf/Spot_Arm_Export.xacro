@@ -15,7 +15,7 @@
     <geometry>
       <mesh filename="package://Spot_Arm_Export_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -36,7 +36,7 @@
     <geometry>
       <mesh filename="package://Spot_Arm_Export_description/meshes/link1_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.0 -0.0 -0.04" rpy="0 0 0"/>
@@ -57,7 +57,7 @@
     <geometry>
       <mesh filename="package://Spot_Arm_Export_description/meshes/link2__1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="yellow"/>
   </visual>
   <collision>
     <origin xyz="-0.0 -0.03 -0.14" rpy="0 0 0"/>
@@ -120,7 +120,7 @@
     <geometry>
       <mesh filename="package://Spot_Arm_Export_description/meshes/link5_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="yellow"/>
   </visual>
   <collision>
     <origin xyz="-0.4805 0.0 -0.237477" rpy="0 0 0"/>
@@ -162,7 +162,7 @@
     <geometry>
       <mesh filename="package://Spot_Arm_Export_description/meshes/link7_1.stl" scale="0.001 0.001 0.001"/>
     </geometry>
-    <material name="silver"/>
+    <material name="black"/>
   </visual>
   <collision>
     <origin xyz="-0.8218 0.0005 -0.237477" rpy="0 0 0"/>
