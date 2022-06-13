@@ -172,32 +172,35 @@
   </collision>
 </link>
 
-<joint name="Rev7" type="continuous">
+<joint name="Rev7" type="revolute">
   <origin xyz="0.0 0.0 0.04" rpy="0 0 0"/>
   <parent link="base_link"/>
   <child link="link1_1"/>
   <axis xyz="0.0 0.0 1.0"/>
+  <limit effort="500.0" lower="-2.61799" upper="3.14159" velocity="0.5"/>
 </joint>
 
-<joint name="Rev8" type="continuous">
+<joint name="Rev8" type="revolute">
   <origin xyz="0.0 0.03 0.1" rpy="0 0 0"/>
   <parent link="link1_1"/>
   <child link="link2__1"/>
   <axis xyz="0.0 -1.0 0.0"/>
+  <limit effort="500.0" lower="-0.523599" upper="3.14159" velocity="0.5"/>
 </joint>
 
-<joint name="Rev9" type="continuous">
+<joint name="Rev9" type="revolute">
   <origin xyz="0.3385 -0.02 0.000137" rpy="0 0 0"/>
   <parent link="link2__1"/>
   <child link="link3_1"/>
   <axis xyz="0.0 1.0 0.0"/>
+  <limit effort="500.0" lower="0" upper="2.61799" velocity="0.5"/>
 </joint>
 
 <joint name="Rev10" type="continuous">
   <origin xyz="0.107 -0.01 0.09734" rpy="0 0 0"/>
   <parent link="link3_1"/>
   <child link="link4_1"/>
-  <axis xyz="1.0 0.0 0.0"/>
+  <limit effort="500.0" lower="-4.3633" upper="1.22173" velocity="0.5"/>
 </joint>
 
 <joint name="Slider11" type="prismatic">
@@ -205,21 +208,23 @@
   <parent link="link4_1"/>
   <child link="link5_1"/>
   <axis xyz="1.0 -0.0 0.0"/>
-  <limit upper="0.0" lower="0.05" effort="100" velocity="100"/>
+  <limit upper="0.075" lower="0.0" effort="100" velocity="100"/>
 </joint>
 
-<joint name="Rev14" type="continuous">
+<joint name="Rev14" type="revolute">
   <origin xyz="0.2413 0.01 0.0" rpy="0 0 0"/>
   <parent link="link5_1"/>
   <child link="link6_1"/>
   <axis xyz="-0.0 1.0 0.0"/>
+  <limit effort="500.0" lower="-1.047198" upper="1.047198" velocity="0.5"/>
 </joint>
 
-<joint name="Rev15" type="continuous">
+<joint name="Rev15" type="revolute">
   <origin xyz="0.1 -0.0105 0.0" rpy="0 0 0"/>
   <parent link="link6_1"/>
   <child link="link7_1"/>
   <axis xyz="-1.0 -0.0 -0.0"/>
+  <limit effort="500.0" lower="-4.45059" upper="1.30899" velocity="0.5"/>
 </joint>
 
 </robot>
