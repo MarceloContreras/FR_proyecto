@@ -41,7 +41,7 @@ def fkine_ur5(q):
     T4 = dh(0        ,q[3]     ,0  ,   0)
     T5 = dh(q[4] + d2,pi       ,0  ,pi/2)
     T6 = dh(0        ,q[4]+pi  ,0  ,pi/2)
-    T7 = dh(d3       ,q[5]+pi  ,0  ,   0)
+    T7 = dh(d3       ,q[5]+pi  ,-0.05025  ,   0)
     # Efector final con respecto a la base
     T = T1.dot(T2).dot(T3).dot(T4).dot(T5).dot(T6).dot(T7)
     return T
