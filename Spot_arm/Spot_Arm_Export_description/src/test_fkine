@@ -3,16 +3,16 @@ import rospy
 from sensor_msgs.msg import JointState
 
 from markers import *
-from lab3functions import *
+from proyfunctions import *
 
 rospy.init_node("testForwardKinematics")
 pub = rospy.Publisher('joint_states', JointState, queue_size=1)
 bmarker = BallMarker(color['GREEN'])
 
 # Joint names
-jnames = ['shoulder_pan_joint', 'shoulder_lift_joint', 'elbow_joint','wrist_1_joint', 'wrist_2_joint', 'wrist_3_joint']
+jnames = ['Rev7', 'Rev8', 'Rev9','Rev10','Slider11', 'Rev14', 'Rev15']
 # Joint Configuration
-q = [0, 0, 0, 0, 0, 0]
+q = [0, 0, 0, 0, 0, 0 , 0]
 
 # End effector with respect to the base
 T = fkine_ur5(q)
@@ -34,7 +34,7 @@ while not rospy.is_shutdown():
     # Current time (needed for ROS)
     jstate.header.stamp = rospy.Time.now()
     # Publish the message
-    pub.publish(jstate)
+    # pub.publish(jstate)
     bmarker.publish()
     # Wait for the next iteration
     rate.sleep()
