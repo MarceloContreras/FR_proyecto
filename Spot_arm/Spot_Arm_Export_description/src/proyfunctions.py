@@ -40,12 +40,12 @@ def fkine_Spot(q):
     
     # Matrices DH (completar), emplear la funcion dh con los parametros DH para cada articulacion
     T1 = dh(h1       ,q[0]+pi  ,0  ,pi/2)
-    T2 = dh(0        ,q[1]+pi  ,d1 ,   0)
+    T2 = dh(0        ,-q[1]+pi  ,d1 ,   0)
     T3 = dh(0        ,q[2]+pi/2,-h2,pi/2)
     T4 = dh(0        ,q[3]     ,0  ,   0)
     T5 = dh(q[4] + d2,pi       ,0  ,pi/2)
-    T6 = dh(0        ,q[4]+pi  ,0  ,pi/2)
-    T7 = dh(d3       ,q[5]+pi  ,-0.05025  ,   0)
+    T6 = dh(0        ,q[5]+pi  ,0  ,pi/2)
+    T7 = dh(d3       ,q[6]+pi  ,-0.05025  ,   0)
     # Efector final con respecto a la base
     T = T1.dot(T2).dot(T3).dot(T4).dot(T5).dot(T6).dot(T7)
     return T
