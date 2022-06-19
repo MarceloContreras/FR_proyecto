@@ -50,6 +50,76 @@ def fkine_Spot(q):
     T = T1.dot(T2).dot(T3).dot(T4).dot(T5).dot(T6).dot(T7)
     return T
 
+## Cinematica inversa
+
+def jacobian_Spot(q, delta=0.0001):
+    """
+    Jacobiano analitico para la posicion. Retorna una matriz de 3x7
+    y toma como entrada el vector de configuracion articular 
+    q=[q1, q2, q3, q4, q5, q6, q7]
+    """
+    # Crear una matriz 3x7
+    J = np.zeros((3, 7))
+    # Transformacion homogenea inicial (usando q)
+    T_0 = fkine_Spot(q)
+    # Iteracion para la derivada de cada columna
+    for i in range(7):
+        # Copiar la configuracion articular inicial
+        deltaq = copy(q)
+        # Incrementar la articulacion i-esima usando un delta
+        deltaq[i] += delta
+        # Transformacion homogenea luego del incremento (q+delta)
+        T_i = fkine_Spot(deltaq)
+        # Aproximacion del Jacobiano de posicion usando diferencias finitas
+        J[:, i] = (T_i[0:3, 3]-T_0[0:3, 3])/delta
+    return J
+
+def ikine_Spot(xdes, q0):
+    """
+    Calcular la cinematica inversa del brazo de Spot numericamente a partir de
+    la configuracion articular inicial de q0 con el metodo de Newton.
+    """
+    epsilon = 0.001
+    max_iter = 1000
+    delta = 0.00001
+    q = copy(q0)
+    ferror = open("/tmp/cartesian_error.txt", "w")
+    for i in range(max_iter):
+        # Main loop
+        fq = fkine_Spot(q)
+        # Expresion para obtener los valores articulares en cada iteracion
+        q = q + np.dot(np.linalg.pinv(jacobian_Spot(q, delta)),(xdes-fq[0:3, 3]))
+        fq = fkine_Spot(q)
+        # Condicion para detener las iteraciones: Error cartesiano pequeno (epsilon)
+        error = np.linalg.norm(xdes-fq[0:3, 3])
+        ferror.write(str(i)+' '+str(error)+'\n')
+        if error < epsilon:
+            break
+    return q
+
+def ik_gradient_Spot(xdes, q0):
+    """
+    Calcular la cinematica inversa del brazo de Spot numericamente a partir de
+    la configuracion articular inicial de q0 con el metodo de gradiente.
+    """
+    epsilon = 0.001
+    max_iter = 1000
+    delta = 0.00001
+    q = copy(q0)
+    ferror = open("/tmp/cartesian_error.txt", "w")
+    for i in range(max_iter):
+        # Main loop
+        fq = fkine_Spot(q)
+        # Expresion para obtener los valores articulares en cada iteracion
+        q = q + 0.5*np.dot((jacobian_Spot(q, delta).T),(xdes-fq[0:3, 3]))
+        fq = fkine_Spot(q)
+        # Condicion para detener las iteraciones: Error cartesiano pequeno (epsilon)
+        error = np.linalg.norm(xdes-fq[0:3, 3])
+        ferror.write(str(i)+' '+str(error)+'\n')
+        if error < epsilon:
+            break
+    return q
+
 ## Dinamica
 
 class Robot(object):
