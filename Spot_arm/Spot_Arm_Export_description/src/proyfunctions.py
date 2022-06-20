@@ -120,32 +120,4 @@ def ik_gradient_Spot(xdes, q0):
             break
     return q
 
-## Dinamica
 
-class Robot(object):
-    def __init__(self, q0, dq0, ndof, dt):
-        self.q = q0    # numpy array (ndof x 1)
-        self.dq = dq0  # numpy array (ndof x 1)
-        self.M = np.zeros([ndof, ndof])
-        self.b = np.zeros(ndof)
-        self.dt = dt
-        self.g = np.zeros(ndof)
-        self.zero = np.zeros(ndof)
-        self.robot = rbdl.loadModel('../urdf/Spot_Arm_Export.xacro')
-
-    def send_command(self, tau):
-        rbdl.CompositeRigidBodyAlgorithm(self.robot, self.q, self.M)
-        rbdl.NonlinearEffects(self.robot, self.q, self.dq, self.b)
-        ddq = np.linalg.inv(self.M).dot(tau-self.b)
-        self.q = self.q + self.dt*self.dq
-        self.dq = self.dq + self.dt*ddq
-
-    def read_joint_positions(self):
-        return self.q
-
-    def read_joint_velocities(self):
-        return self.dq
-
-    def read_gravity(self):
-        rbdl.InverseDynamics(self.robot, self.q, self.zero, self.zero, self.g)
-        return self.g

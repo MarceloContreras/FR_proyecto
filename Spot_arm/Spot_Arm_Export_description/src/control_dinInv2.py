@@ -25,16 +25,16 @@ jstate = JointState()
 jstate.header.stamp = rospy.Time.now()
 jstate.name = jnames
 
-# # ======================Grupo 1================================
-# # Configuracion articular inicial (en radianes)
+# #======================Grupo 1================================
+# Configuracion articular inicial (en radianes)
 # q0 = np.array([0., 0., 0., 0., 0., 0., 0.])
-# # Velocidad inicial
+# Velocidad inicial
 # dq0 = np.array([0., 0., 0., 0., 0., 0., 0.])
-# # Configuracion articular deseada
+# Configuracion articular deseada
 # qdes = np.array([2.34, 2.33, 2.26, -0.05, 0.07, 0.37, 1.03])
 # dqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
 # ddqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
-# # =============================================================
+# #=============================================================
 
 # # ======================Grupo 2================================
 # # Configuracion articular inicial (en radianes)
@@ -47,21 +47,21 @@ jstate.name = jnames
 # ddqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
 # # =============================================================
 
-# ======================Grupo 3================================
-# Configuracion articular inicial (en radianes)
-q0 = np.array([0., 0., 0., 0., 0., 0., 0.])
-# Velocidad inicial
-dq0 = np.array([0., 0., 0., 0., 0., 0., 0.])
-# Configuracion articular deseada
-qdes = np.array([1.85, 2.93, 1.76, -1.55, 0.04, -0.35, 0.33])
-dqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
-ddqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
-# =============================================================
+# # ======================Grupo 3================================
+# # Configuracion articular inicial (en radianes)
+# q0 = np.array([0., 0., 0., 0., 0., 0., 0.])
+# # Velocidad inicial
+# dq0 = np.array([0., 0., 0., 0., 0., 0., 0.])
+# # Configuracion articular deseada
+# qdes = np.array([1.85, 2.93, 1.76, -1.55, 0.04, -0.35, 0.33])
+# dqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
+# ddqdes = np.array([0., 0., 0., 0., 0., 0., 0.])
+# # =============================================================
+
 
 # Posicion resultante de la configuracion articular deseada
 xdes = fkine_Spot(qdes)[0:3, 3]
-dxdes = np.array([0, 0, 0])
-ddxdes = np.array([0, 0, 0])
+
 # Copiar la configuracion articular en el mensaje a ser publicado
 jstate.position = q0
 pub.publish(jstate)
@@ -76,21 +76,16 @@ dt = 1.0/freq
 rate = rospy.Rate(freq)
 
 # Se definen las ganancias del controlador
-valores = 100*np.array([1.0, 1.0, 1.0])
+valores = 0.5*np.array([1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
 Kp = np.diag(valores)
 Kd = 2*np.sqrt(Kp)
 
-Ki = np.array([[0.0, 0.0, 0.0],
-               [0.0, 0.0, 0.0],
-               [0.0, 0.0, 0.0]])
 # Bucle de ejecucion continua
 t = 0.0
 
 # Variables articulares
 q = copy(q0)
 dq = copy(dq0)
-
-e_int = np.zeros(3)
 
 # Arrays para dinamica
 M = np.zeros([ndof, ndof])
@@ -99,10 +94,6 @@ b = np.zeros(ndof)
 # Limites
 q_max = [3.14159, 3.14159, 2.61799, 1.22173, 0.075, 1.047198, 1.30899]
 q_min = [-2.61799, -0.523599, 0.0, -4.3633, 0.0, -1.047198, -4.45059]
-
-J_1 = np.array([[0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0]])
 
 while not rospy.is_shutdown():
 
@@ -123,20 +114,12 @@ while not rospy.is_shutdown():
     fqdes.write(str(t)+' '+str(qdes[0])+' '+str(qdes[1])+' ' + str(qdes[2])+' ' + str(
         qdes[3])+' '+str(qdes[4])+' '+str(qdes[5])+' '+str(qdes[6])+'\n')
 
-    # Jacobiano y su derivada
-    J = jacobian_Spot(q)
-    invJ = np.linalg.pinv(J)
-    dJ = (J - J_1)/dt
-    dx = J.dot(dq)
-
     # Error
-    de = dxdes - dx
-    e = xdes - x
+    e = qdes - q
+    de = dqdes - dq
 
     # Ley de control
-
-    u = M.dot(invJ).dot(ddxdes - dJ.dot(dq) +
-                        Kd.dot(de) + Kp.dot(e)) + b
+    u = M.dot(ddqdes + Kd.dot(de) + Kp.dot(e)) + b
 
     # Actualizacion
     ddq = np.linalg.inv(M).dot(u-b)
@@ -144,7 +127,6 @@ while not rospy.is_shutdown():
     dq = dq + dt*ddq
 
     # Comprobacion de limites articulares
-
     for j in range(ndof):
         if(qprev[j] > q_min[j] and qprev[j] < q_max[j]):
             q[j] = qprev[j]
@@ -152,7 +134,7 @@ while not rospy.is_shutdown():
     print(np.round(q, 4))
 
     # Finalizacion del control
-    if(np.linalg.norm(xdes - x) < 1e-4):
+    if(np.linalg.norm(qdes - q) < 1e-4):
         break
 
     # Publicacion del mensaje
