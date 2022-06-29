@@ -3,6 +3,21 @@
 
 El presente proyecto se ha encargado de modificar el brazo robótico del Spot Robot de Boston Dynamics para aumentarle una articulación prismática, obteniendo un robot manipulador de 7 grados de libertad para amplificar el espacio operacional y alcanzable. Se definieron nuevas dimensiones y en base a ellas, se obtuvieron los parámetros Dehavit - Hartenberg. El robot modificado fue modelado mediante Inventor, generando un modelo enmallado que fue exportado como archivo formato URDF para utilizarse en ROS. Fueron definidas tres configuraciones de prueba que fueron visualizadas mediante Rviz para cinemática directa, cinemática inversa de posición y control cinemático de posición. También, fue obtenido el modelo dinámico del robot a través de la librería RBDL y fue empleado para dos esquemas de control dinámico. Tanto el control cinemático como dinámico logró seguir las referencias con una norma de error menor a 0.0001.
 
+## Ejecución
+
+Terminal 1
+
+```bash
+source (workspace asignado)/devel/setup.bash
+roslaunch Spot_Arm_Export_description display.launch
+```
+
+Terminal 2
+
+```bash
+rosrun Spot_Arm_Export_description (script seleccionado)
+```
+
 ## Dependencias necesarias
 
 ### ROS Kinetic
@@ -37,13 +52,41 @@ Como se menciona al inicio, el modelamiento fue logrado a partir de un proyecto 
 
 ## Visualización y simulación
 
+Para la visualización del robot en Rviz se debe ejecutar:
+
 ```bash
-cd ~/catkin_ws/
-catkin_make
-source devel/setup.bash
+roslaunch Spot_Arm_Export_description display.launch
+```
+
+Y para simulación en Gazebo:
+
+```bash
+roslaunch Spot_Arm_Export_description gazebo.launch
 ```
 
 ![alt text](https://github.com/MarceloContreras/FR_proyecto/blob/main/Modelo_Rviz.png)
 
+## Listado de archivos 
 
+```
+.
+└── root/
+    └── Spot_Arm_Export_description
+        ├── launch/
+        │   ├── controller.launch
+        │   ├── controller.yaml
+        │   ├── display.launch
+        │   ├── gazebo.launch
+        │   ├── urdf.rviz
+        ├── meshes/
+        └── src/
+        │   ├── control_dinInv.py (Control dinamico operacional)
+        │   ├── control_dinInv2.py (Control dinamico articular)
+        │   ├── markers.py
+        │   ├── proyfunctions.py (Funciones utiles)
+        │   ├── test_din.py (Comprobación de modelo dinámico)
+        │   ├── test_fkine.py (Cinemática directa)
+        │   ├── test_ikine.py (Cinemática inversa)
+        └── urdf/
+```
 
