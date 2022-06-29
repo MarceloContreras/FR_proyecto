@@ -31,11 +31,17 @@ Lista de parámetros DH:
 
 ## Modelamiento del robot
 
-
+Como se menciona al inicio, el modelamiento fue logrado a partir de un proyecto Inventor, posteriormente exportado a URDF y Xacro mediante los scripts encontrados en el repositorio https://github.com/syuntoku14/fusion2urdf.
 
 ![alt text](https://github.com/MarceloContreras/FR_proyecto/blob/main/Spot_fusion.png)
 
 ## Visualización y simulación
+
+```bash
+cd ~/catkin_ws/
+catkin_make
+source devel/setup.bash
+```
 
 ![alt text](https://github.com/MarceloContreras/FR_proyecto/blob/main/Modelo_Rviz.png)
 
