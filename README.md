@@ -1,8 +1,8 @@
 # FR_proyecto
 ## Proyecto Final del curso de Fundamentos de Robótica (MT-0006) UTEC 
 
-![alt text](https://github.com/MarceloContreras/Proyecto-EEGNet-/blob/main/Spot_fusion.PNG)
-![alt text](https://github.com/MarceloContreras/Proyecto-EEGNet-/blob/main/Modelo_Rviz.PNG)
+![alt text](https://github.com/MarceloContreras/FR_proyecto/blob/main/Spot_fusion.PNG)
+![alt text](https://github.com/MarceloContreras/FR_proyecto/blob/main/Modelo_Rviz.PNG)
 
 
 ### Planificación de las tareas:
